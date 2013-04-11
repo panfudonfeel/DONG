@@ -1,1 +1,1 @@
-#define U_BOOT_VERSION "U-Boot 1.1.6-g208c30cf-dirty"
+#define U_BOOT_VERSION "U-Boot 1.1.6-ga760c608-dirty"

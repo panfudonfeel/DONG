@@ -169,13 +169,13 @@
 #include <cmd_confdefs.h>
 
 #define CONFIG_BOOTDELAY	1
-//#define CONFIG_BOOTARGS    	"root=/dev/mtdblock2 rootfstype=yaffs2 console=tty0 console=ttySAC0,115200"
-#define CONFIG_BOOTARGS    	"root=/dev/mtdblock2 rootfstype=cramfs console=ttySAC0,115200"
+#define CONFIG_BOOTARGS    	"root=/dev/mtdblock2 rootfstype=yaffs2 console=tty0 console=ttySAC0,115200"
+//#define CONFIG_BOOTARGS    	"root=/dev/mtdblock2 rootfstype=cramfs console=ttySAC0,115200"
 
 #define CONFIG_ETHADDR		00:40:5c:26:0a:5b
 #define CONFIG_NETMASK          255.255.255.0
 #define CONFIG_IPADDR		192.168.1.20
-#define CONFIG_SERVERIP		192.168.1.10
+#define CONFIG_SERVERIP		192.168.1.191
 #define CONFIG_GATEWAYIP	192.168.1.1
 
 #define CONFIG_ZERO_BOOTDELAY_CHECK
