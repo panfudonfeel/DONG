@@ -384,8 +384,8 @@
 
 #define CONFIG_NR_DRAM_BANKS	1	   /* we have 2 bank of DRAM */
 #define PHYS_SDRAM_1		MEMORY_BASE_ADDRESS /* SDRAM Bank #1 */
-//#define PHYS_SDRAM_1_SIZE	0x08000000 /* 64 MB */
-#define PHYS_SDRAM_1_SIZE	0x10000000
+#define PHYS_SDRAM_1_SIZE	0x08000000 /* 64 MB */
+//#define PHYS_SDRAM_1_SIZE	0x10000000 /* 128 MB */
 
 #define CFG_FLASH_BASE		0x00000000
 
