@@ -169,13 +169,13 @@
 #include <cmd_confdefs.h>
 
 #define CONFIG_BOOTDELAY	1
-#define CONFIG_BOOTARGS    	"root=/dev/mtdblock2 rootfstype=yaffs2 console=tty0 console=ttySAC0,115200"
+//#define CONFIG_BOOTARGS    	"root=/dev/mtdblock2 rootfstype=yaffs2 console=tty0 console=ttySAC0,115200"
 //#define CONFIG_BOOTARGS    	"root=/dev/mtdblock2 rootfstype=cramfs console=ttySAC0,115200"
-
+#define CONFIG_BOOTARGS		"root=/dev/mtdblock2 rootfstype=yaffs2 init=/linuxrc nconsole=tty1 console=ttySAC0,115200"   // add by xlt
 #define CONFIG_ETHADDR		00:40:5c:26:0a:5b
 #define CONFIG_NETMASK          255.255.255.0
 #define CONFIG_IPADDR		192.168.1.20
-#define CONFIG_SERVERIP		192.168.1.191
+#define CONFIG_SERVERIP		192.168.1.10
 #define CONFIG_GATEWAYIP	192.168.1.1
 
 #define CONFIG_ZERO_BOOTDELAY_CHECK
@@ -224,7 +224,7 @@
 #endif
 
 //#define CONFIG_CLK_800_133_66
-#define CONFIG_CLK_666_133_66
+#define CONFIG_CLK_666_133_66   //modify by xlt
 //#define CONFIG_CLK_532_133_66
 //#define CONFIG_CLK_400_133_66
 //#define CONFIG_CLK_400_100_50
@@ -313,12 +313,9 @@
  */
 #ifndef CONFIG_SMDK6410_X5A
 
-//#define DMC1_MEM_CFG		0x00010012	/* Supports one CKE control, Chip1, Burst4, Row/Column bit */
-#define DMC1_MEM_CFG		0x0001001a	/* Supports one CKE control, Chip1, Burst4, Row/Column bit */
-
+#define DMC1_MEM_CFG		0x00010012	/* Supports one CKE control, Chip1, Burst4, Row/Column bit */
 #define DMC1_MEM_CFG2		0xB45
-//#define DMC1_CHIP0_CFG		0x150F8
-#define DMC1_CHIP0_CFG		0x150F0
+#define DMC1_CHIP0_CFG		0x150F8
 #define DMC_DDR_32_CFG		0x0 		/* 32bit, DDR */
 
 /* Memory Parameters */
@@ -385,7 +382,6 @@
 #define CONFIG_NR_DRAM_BANKS	1	   /* we have 2 bank of DRAM */
 #define PHYS_SDRAM_1		MEMORY_BASE_ADDRESS /* SDRAM Bank #1 */
 #define PHYS_SDRAM_1_SIZE	0x08000000 /* 64 MB */
-//#define PHYS_SDRAM_1_SIZE	0x10000000 /* 128 MB */
 
 #define CFG_FLASH_BASE		0x00000000
 
