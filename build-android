@@ -1,0 +1,12 @@
+#!/bin/bash
+#if [ ! -e "./jdk1.6.0_23" ]; then
+#    tar xzf jdk1.6.0_23.tar.gz
+#fi
+
+export PATH=$PWD/jdk1.6.0_23/bin:$PATH
+
+. setenv
+
+#make -j$CPU_JOB_NUM || exit 1
+
+make || exit 0

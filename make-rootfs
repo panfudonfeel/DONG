@@ -1,0 +1,83 @@
+#!/bin/sh
+
+PRODUCT=QT6410
+
+echo -n "Generating rootfs for Android..."
+rm -fr rootfs_dir
+cp -a out/target/product/${PRODUCT}/root/ rootfs_dir 
+cp -a out/target/product/${PRODUCT}/system/* rootfs_dir/system
+cp -a out/target/product/${PRODUCT}/data/* rootfs_dir/data
+chown root:root rootfs_dir -R
+chmod 755 rootfs_dir/system/etc/dhcpcd/dhcpcd-run-hooks
+chown 1014:2000 rootfs_dir/system/etc/dhcpcd/dhcpcd-hooks -R
+chown 1000:1000 rootfs_dir/data -R
+echo "...done"
+
+if [ "${PRODUCT}" = "QT6410" ]; then
+	echo -n "Create device file..."
+	mkdir rootfs_dir/dev/input
+	mknod rootfs_dir/dev/tty c 5 0
+	mknod rootfs_dir/dev/console c 5 1
+	mknod rootfs_dir/dev/fb0 c 29 0
+	mknod rootfs_dir/dev/pointercal c 10 119
+	mknod rootfs_dir/dev/input/event1  c 13 65
+	mknod rootfs_dir/dev/s3c2410_serial3 c 204 67
+	echo "...done"
+
+	echo -n "Install prebuilt packages..."
+	if [ -f vendor/zhiyuan/common/busybox-bin.tgz ]; then
+		tar xf vendor/zhiyuan/common/busybox-bin.tgz -C rootfs_dir/system
+		ln -sf /system/busybox/bin/busybox rootfs_dir/system/bin/sh
+		mkdir -p rootfs_dir/bin && ln -sf /system/busybox/bin/sh rootfs_dir/bin/sh
+	fi
+	if [ -f vendor/zhiyuan/common/iwtools-bin.tgz ]; then
+		tar xf vendor/zhiyuan/common/iwtools-bin.tgz -C rootfs_dir/system/bin
+	fi
+	echo "...done"
+
+       
+	echo -n "Install firmware for 3G ..."
+	if [ -f vendor/zhiyuan/common/firmware.tar ]; then
+		tar xf vendor/zhiyuan/common/firmware.tar -C rootfs_dir/system/etc
+	fi   
+        echo "...done"
+
+        echo -n "Install ppp for 3G"
+	if [ -f vendor/zhiyuan/common/ppp.tgz ]; then
+		tar zxf vendor/zhiyuan/common/ppp.tgz -C rootfs_dir/system/etc
+	fi   
+        echo "...done"
+
+         echo -n "Install usb_modeswitch.d for 3G"
+	if [ -f vendor/zhiyuan/common/usb_modeswitch.d.tgz ]; then
+		tar zxf vendor/zhiyuan/common/usb_modeswitch.d.tgz -C rootfs_dir/system/etc
+	fi   
+        echo "...done"
+
+        echo -n "Install Dialup for 3G"
+	if [ -f vendor/zhiyuan/common/3gcmd.tar ]; then
+		tar xf vendor/zhiyuan/common/3gcmd.tar -C rootfs_dir/system/bin
+	fi   
+        echo "...done"
+
+        echo -n "Install zhiyuanLED permissions file"
+	if [ -f vendor/zhiyuan/common/zhiyuanLEDTest.tar.gz ]; then
+		tar xf vendor/zhiyuan/common/zhiyuanLEDTest.tar.gz -C rootfs_dir/system/etc/permissions
+	fi 
+
+	chown 1000:1000 rootfs_dir/data/app -R
+	chmod 775 rootfs_dir/data/app
+#	chmod 664 rootfs_dir/data/app/*.apk
+       
+        chmod +x rootfs_dir/linuxrc
+	chmod +x rootfs_dir/zhiyuan.rc
+	chmod +x rootfs_dir/system/bin/calibrate
+
+        cd rootfs_dir
+	tar cvf ../android_fs.tar *
+
+        echo "...done"
+        echo "...done"
+
+fi
+
